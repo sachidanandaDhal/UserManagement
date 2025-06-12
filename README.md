@@ -1,3 +1,19 @@
+
+- ✅ Admin Login (`id = knox`, `password = knox`)
+- ✅ Admin can create users by email
+- ✅ Users receive auto-generated password via email (Nodemailer)
+- ✅ Users must set a new password on first login
+- ✅ JWT-based authentication for both Admin and Users
+- ✅ Role-based redirection (Admin Dashboard / User Dashboard)
+
+#RUN Backend 
+```bash
+cd backend
+npm install
+npm start
+
+
+
 ![image](https://github.com/user-attachments/assets/017cf670-1a22-4f03-b0ff-5ad79a897ffe)
 # Admin Login ID= knox
 # Admin Login Password= knox
