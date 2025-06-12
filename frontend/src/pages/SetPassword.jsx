@@ -19,11 +19,22 @@ export default function SetPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-6 rounded shadow-md w-80">
-        <h2 className="text-xl font-bold mb-4">Set New Password</h2>
-        <input className="input" type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-        <button className="btn mt-4 w-full" onClick={handleSetPassword}>Set Password</button>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-blue-100 to-green-100">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Set New Password</h2>
+        <input
+          type="password"
+          placeholder="New Password"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <button
+          className="mt-4 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition font-semibold"
+          onClick={handleSetPassword}
+        >
+          Set Password
+        </button>
       </div>
     </div>
   );
