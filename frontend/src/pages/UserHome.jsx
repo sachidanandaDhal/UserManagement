@@ -16,7 +16,6 @@ export default function UserHome() {
 
   const handleLogout = () => {
     localStorage.removeItem('userToken');
-    localStorage.removeItem('role');
     localStorage.removeItem('userEmail');
     navigate('/');
   };

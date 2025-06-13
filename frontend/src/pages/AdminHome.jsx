@@ -4,13 +4,40 @@ import API from '../services/api';
 
 export default function AdminHome() {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const navigate = useNavigate();
 
+  // Email validation function
+ const validateEmail = (value) => {
+  const emailRegex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/;
+
+  if (!value) {
+    setEmailError('Email is required');
+    return false;
+  } else if (!emailRegex.test(value)) {
+    setEmailError('Only @gmail.com, @yahoo.com, or @outlook.com emails are allowed');
+    return false;
+  } else {
+    setEmailError('');
+    return true;
+  }
+};
+
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    validateEmail(value);
+  };
+
   const createUser = async () => {
+    if (!validateEmail(email)) return;
+
     try {
       await API.post('/admin/create-user', { email });
       alert('User created and email sent!');
       setEmail('');
+      setEmailError('');
     } catch (err) {
       console.error('Create user error:', err.response?.data || err.message);
       alert('Failed to create user');
@@ -18,8 +45,7 @@ export default function AdminHome() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('role');
+    localStorage.removeItem('adminToken');  
     navigate('/');
   };
 
@@ -48,15 +74,21 @@ export default function AdminHome() {
           <input
             type="email"
             placeholder="Enter user's email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={`w-full px-4 py-2 border ${emailError ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 ${emailError ? 'focus:ring-red-400' : 'focus:ring-blue-500'}`}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
           />
+          {emailError && <p className="mt-1 text-sm text-red-500">{emailError}</p>}
         </div>
 
         <button
           onClick={createUser}
-          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 font-semibold"
+          disabled={!email || emailError}
+          className={`w-full py-2 rounded-md font-semibold transition duration-200 ${
+            !email || emailError
+              ? 'bg-gray-400 text-white cursor-not-allowed'
+              : 'bg-blue-600 text-white hover:bg-blue-700'
+          }`}
         >
           Create User
         </button>
