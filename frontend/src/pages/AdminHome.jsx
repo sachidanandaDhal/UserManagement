@@ -7,7 +7,6 @@ export default function AdminHome() {
   const [emailError, setEmailError] = useState('');
   const navigate = useNavigate();
 
-  // Email validation function
  const validateEmail = (value) => {
   const emailRegex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/;
 
